@@ -1,0 +1,47 @@
+version: '3.4'
+
+volumes:
+    go-data:
+
+services:
+    gw:
+        image: jrgensen/gateway
+        environment:
+            PROXY_MAPPINGS: >
+                nats:nats-streaming-console:8282
+                nats-monitor:nats-streaming-server:8222
+                redis:redis-commander:8081
+                swagger:8080
+                build:api:8080
+                tilmelding:web
+        ports:
+        - 80
+
+    ui:
+        image: node:10.11-alpine
+        entrypoint: ["./init-dev"]
+        volumes:
+        - ./web/ui:/app
+        working_dir: /app
+        environment:
+            DEBUG: "true"
+            NODE_ENV: development
+
+    api:
+        build:
+            context: ./web
+            target: api-dev
+        volumes:
+        - ./web/api:/app
+        - ./web/ui/public:/www
+        environment:
+            #GO_BUILD_FLAGS: -race
+            BASICAUTH: http://basicauth
+            COOKIE_DSN: http://jwttoken@nathejk.dk
+
+    basicauth:
+        image: jrgensen/basicauth
+        environment:
+            USERPASS: >
+                nathejk:lukmigind
+

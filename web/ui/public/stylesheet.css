@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Context Reprise Condensed SSi';
+    src: url('ContextRepriseCondensedSSiBoldCondensed.woff2') format('woff2'),
+        url('ContextRepriseCondensedSSiBoldCondensed.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+

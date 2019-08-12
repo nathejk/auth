@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sh ./generate-config.sh > public/config.js
+npm install
+npm ci # installs what is specified in package-lock.json
+npm run serve
