@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strings"
 )
 
 var (
@@ -28,7 +27,7 @@ func main() {
 	publicKeys[kid] = pub
 
 	http.HandleFunc("/basicauth", basicauthHandler)
-	http.HandleFunc("/pubkey", pubkeyHandler)
+	http.HandleFunc("/pubkey/", pubkeyHandler)
 	http.Handle("/", http.FileServer(http.Dir("/www")))
 
 	fmt.Println("Running webserver")
@@ -112,7 +111,7 @@ func basicauthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func pubkeyHandler(w http.ResponseWriter, r *http.Request) {
-	kid := strings.Replace(r.URL.Path, "/", "", 1)
+	kid := r.URL.Path[8:]
 
 	fmt.Fprintf(w, publicKeys[kid])
 }
