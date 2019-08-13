@@ -1,5 +1,6 @@
 #!/bin/bash
 
+eval "echo \"$(< /app/public/config.js.template )\"" > /app/public/config.js
 
 mkdir -p /tmp/coverage
 (cd /tmp/coverage && ran &)

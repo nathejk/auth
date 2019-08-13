@@ -2,7 +2,7 @@
     <main>
     <div class="box">
         <h1>Nathejk 2019</h1>
-        <form action="//api.auth.local.nathejk.dk/basicauth" method="post" >
+        <form :action="action" method="post" >
             <div class="input-user"><input type="text" name="username" placeholder="brugernavn"></div>
             <div class="input-pass"><input type="password" name="password" placeholder="kodeord"></div>
             <button>luk mig ind &raquo;</button>
@@ -122,7 +122,10 @@ export default {
         countdownActive: function() {
             //return this.countdownDate.isBefore(moment());
             return moment().isBefore(this.countdownDate);
-        }
+        },
+        action: function() {
+            return envConfig.API_BASEURL + "/basicauth";
+        },
     },
     methods: {
       afterEnter: function () {

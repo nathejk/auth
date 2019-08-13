@@ -1,4 +1,5 @@
 #!/bin/bash
 
+eval "echo \"$(< /www/config.js.tmplate )\"" > /www/config.js
 
 ./dims $@
